@@ -20,15 +20,15 @@ import McvPopularTags from "@/components/Tags.vue";
 import McvBanner from "@/components/Banner.vue";
 
 export default {
-  name: "McvGlobalFeed",
+  name: "McvTagFeed",
   components: {
     McvBanner,
     McvPopularTags,
     McvFeed
   },
-  data() {
-    return {
-      apiUrl: '/articles'
+  computed: {
+    apiUrl() {
+      return `/articles?tag=${this.$route.params.slug}`
     }
   }
 }
