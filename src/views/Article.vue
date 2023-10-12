@@ -16,13 +16,13 @@
             </span>
           </div>
 
-          <span>
+          <span v-if="isAuthor">
             <router-link class="btn btn-outline-secondary btn-sm"
                          :to="{name: 'editArticle', params: {slug: article.slug}}">
               <i class="ion-edit"/>
               Edit article
             </router-link>
-            <button class="btn btn-outline-danger btn-sm">
+            <button class="btn btn-outline-danger btn-sm" @click="onDeleteArticle">
               <i class="ion-trash-a"/>
               Delete article
             </button>
@@ -62,7 +62,7 @@
             </span>
           </div>
 
-          <div v-if="currentUser.username === article.author.username">
+          <div>
             Edit delete article
           </div>
 
@@ -119,9 +119,9 @@
 </template>
 
 <script>
-import {actionTypes} from "@/store/article";
+import {actionTypes as articleActionTypes} from "@/store/article";
 import {mapGetters, mapState} from "vuex";
-import {getterTypes} from "@/store/auth";
+import {getterTypes as authGetterTypes} from "@/store/auth";
 import McvLoading from "@/components/Loading.vue";
 import McvErrorMessage from "@/components/ErrorMessage.vue";
 
@@ -135,16 +135,26 @@ export default {
       error: state => state.article.error,
     }),
     ...mapGetters({
-      isLoggedIn: getterTypes.isLoggedIn,
-      currentUser: getterTypes.currentUser,
+      isLoggedIn: authGetterTypes.isLoggedIn,
+      currentUser: authGetterTypes.currentUser,
     }),
+    isAuthor() {
+      if (!this.currentUser || !this.article) {
+        return false
+      }
+      return this.currentUser.username === this.article.author.username
+    }
   },
   mounted() {
-    this.$store.dispatch(actionTypes.getArticle, {slug: this.$route.params.slug})
+    this.$store.dispatch(articleActionTypes.getArticle, {slug: this.$route.params.slug})
   },
   methods: {
     onSubmit() {
       console.log('sumbit comment')
+    },
+    onDeleteArticle() {
+      this.$store.dispatch(articleActionTypes.deleteArticle, {slug: this.$route.params.slug})
+          .then(() => this.$router.push({name: 'globalFeed'}))
     }
   }
 }
