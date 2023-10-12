@@ -29,6 +29,7 @@
           <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Read more...</span>
+          <mcv-article-tags :tag-list="article.tagList"/>
         </router-link>
       </div>
       <mcv-pagination :total="feed.articlesCount" :limit="limit" :current-page="currentPage" :url="baseUrl"/>
@@ -45,6 +46,7 @@ import {limit} from "@/helpers/vars";
 import queryString from "query-string";
 import McvLoading from "@/components/Loading.vue";
 import McvErrorMessage from "@/components/ErrorMessage.vue";
+import McvArticleTags from "@/components/ArticleTags.vue";
 
 export default {
   name: "McvFeed",
@@ -55,6 +57,7 @@ export default {
     }
   },
   components: {
+    McvArticleTags,
     McvErrorMessage,
     McvLoading,
     McvPagination

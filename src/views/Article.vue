@@ -39,11 +39,7 @@
           <div>
             <p>{{ article.body }}</p>
           </div>
-          <ul class="tag-list" v-for="tag in article.tagList" :key="tag">
-            <li class="tag-default tag-pill tag-outline">
-              {{ tag }}
-            </li>
-          </ul>
+          <mcv-article-tags :tag-list="article.tagList"/>
         </div>
       </div>
       <hr>
@@ -124,10 +120,11 @@ import {mapGetters, mapState} from "vuex";
 import {getterTypes as authGetterTypes} from "@/store/auth";
 import McvLoading from "@/components/Loading.vue";
 import McvErrorMessage from "@/components/ErrorMessage.vue";
+import McvArticleTags from "@/components/ArticleTags.vue";
 
 export default {
   name: "McvArticle",
-  components: {McvErrorMessage, McvLoading},
+  components: {McvArticleTags, McvErrorMessage, McvLoading},
   computed: {
     ...mapState({
       isLoading: state => state.article.isLoading,
