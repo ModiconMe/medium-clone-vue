@@ -4,6 +4,7 @@ import auth from "@/store/auth";
 import feed from "@/store/feed";
 import tags from "@/store/tags";
 import article from "@/store/article";
+import createArticle from "@/store/createArticle";
 
 Vue.use(Vuex)
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     auth,
     feed,
     tags,
-    article
+    article,
+    createArticle
   }
 })

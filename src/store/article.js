@@ -32,9 +32,12 @@ const mutations = {
     [mutationTypes.getArticleFailure](state) {
         state.isLoading = false
     },
-    [mutationTypes.deleteArticleStart]() {},
-    [mutationTypes.deleteArticleSuccess]() {},
-    [mutationTypes.deleteArticleFailure]() {}
+    [mutationTypes.deleteArticleStart]() {
+    },
+    [mutationTypes.deleteArticleSuccess]() {
+    },
+    [mutationTypes.deleteArticleFailure]() {
+    },
 }
 
 const actions = {
