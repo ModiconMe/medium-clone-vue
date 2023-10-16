@@ -12,7 +12,3 @@ export default {
   name: "McvBanner"
 }
 </script>
-
-<style scoped>
-
-</style>

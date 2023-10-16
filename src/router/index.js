@@ -7,6 +7,7 @@ import YourFeed from "@/views/YourFeed";
 import TagFeed from "@/views/TagFeed.vue";
 import Article from "@/views/Article.vue";
 import CreateArticle from "@/views/CreateArticle.vue";
+import EditArticle from "@/views/EditArticle.vue";
 
 Vue.use(VueRouter)
 
@@ -49,7 +50,7 @@ const routes = [
   {
     path: '/articles/:slug/edit',
     name: 'editArticle',
-    component: GlobalFeed
+    component: EditArticle
   },
   {
     path: '/settings',

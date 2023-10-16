@@ -49,9 +49,7 @@ const actions = {
                     context.commit(mutationTypes.getArticleSuccess, article)
                     resolve(article)
                 })
-                .catch(() => {
-                    context.commit(mutationTypes.getArticleFailure)
-                })
+                .catch(() => context.commit(mutationTypes.getArticleFailure))
         })
     },
     [actionTypes.deleteArticle](context, {slug}) {
