@@ -44,9 +44,7 @@ export default {
   methods: {
     onSubmit(article) {
       const slug = this.$route.params.slug
-      let newVar = {slug, article};
-      console.log(newVar)
-      this.$store.dispatch(actionTypes.editArticle, newVar)
+      this.$store.dispatch(actionTypes.editArticle, {slug, article})
           .then(response => this.$router.push({name: 'article', params: {slug: response.slug}}))
     }
   }
