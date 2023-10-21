@@ -22,7 +22,8 @@
           </span>
         </div>
         <div class="pull-xs-right">
-          ADD TO FAVORITES
+          <mcv-add-to-favorites v-if="isLoggedIn" :is-favorited="article.favorited" :slug="article.slug"
+                                :favorites-count="article.favoritesCount" is-favotited/>
         </div>
 
         <router-link :to="{name: 'article', params: {slug: article.slug}}" class="preview-link">
@@ -39,14 +40,16 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
-import {actionTypes} from "@/store/feed";
+import {mapGetters, mapState} from "vuex";
+import {actionTypes as feedActionTypes} from "@/store/feed"
 import McvPagination from "@/components/Pagination.vue";
 import {limit} from "@/helpers/vars";
 import queryString from "query-string";
 import McvLoading from "@/components/Loading.vue";
 import McvErrorMessage from "@/components/ErrorMessage.vue";
 import McvArticleTags from "@/components/ArticleTags.vue";
+import {getterTypes} from "@/store/auth";
+import McvAddToFavorites from "@/components/AddToFavorites.vue";
 
 export default {
   name: "McvFeed",
@@ -57,6 +60,7 @@ export default {
     }
   },
   components: {
+    McvAddToFavorites,
     McvArticleTags,
     McvErrorMessage,
     McvLoading,
@@ -75,6 +79,10 @@ export default {
       isLoading: state => state.feed.isLoading,
       feed: state => state.feed.data,
       error: state => state.feed.error,
+      article: state => state.article.data
+    }),
+    ...mapGetters({
+      isLoggedIn: getterTypes.isLoggedIn
     }),
     currentPage() {
       return Number(this.$route.query.page || '1')
@@ -100,8 +108,7 @@ export default {
         ...parsedUrl.query
       });
       const apiUrlWithParams = `${parsedUrl.url}?${stringifyParams}`
-      console.log(apiUrlWithParams)
-      this.$store.dispatch(actionTypes.getFeed, {apiUrl: apiUrlWithParams})
+      this.$store.dispatch(feedActionTypes.getFeed, {apiUrl: apiUrlWithParams})
     }
   }
 }
